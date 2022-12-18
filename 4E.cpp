@@ -1,3 +1,5 @@
+#include "optimization.h"
+
 #include <functional>
 #include <iostream>
 #include <string>
@@ -34,12 +36,6 @@ public:
         positions[heap[i]] = i;
         siftUp(i);
         siftDown(i);
-    }
-    void print() const {
-        for (size_t i = 1; i <= n; ++i) {
-            std::cout << ' ' << values[heap[i]];
-        }
-        std::cout << '\n';
     }
 
 private:
@@ -97,14 +93,6 @@ public:
         heapMin->del(valueIndex);
         return values[valueIndex];
     }
-    void print() const {
-        heapMin->print();
-        heapMax->print();
-        // for (const auto val : values) {
-        //     std::cout << ' ' << val;
-        // }
-        // std::cout << '\n';
-    }
 
 private:
     std::vector<uint32_t> values;  // vector with real data
@@ -113,13 +101,12 @@ private:
 };
 
 int main() {
-    uint32_t nOperations{0};
-    std::cin >> nOperations;
-    std::string operation;
+    auto nOperations = readInt();
+    char s[101];
     MultiSet* multiSet = new MultiSet();
-    for (uint32_t i = 0; i < nOperations; ++i) {
-        std::cin >> operation;
-        // std::cout << operation << '\n';
+    for (int i = 0; i < nOperations; ++i) {
+        readWord(s);
+        const std::string operation{s};
         const auto braceOpenPos = operation.find('(');
         const auto command = operation.substr(0, braceOpenPos == std::string::npos ? operation.size() : braceOpenPos);
         if (command == "Insert") {
@@ -127,24 +114,11 @@ int main() {
             const auto value = std::stoul(operation.substr(braceOpenPos + 1, braceClosePos - braceOpenPos - 1));
             multiSet->insert(value);
         } else if (command == "GetMin") {
-            std::cout << multiSet->getMin() << '\n';
+            writeInt(multiSet->getMin(), '\n');
         } else if (command == "GetMax") {
-            std::cout << multiSet->getMax() << '\n';
+            writeInt(multiSet->getMax(), '\n');
         }
-        // multiSet->print();
     }
-    // for (const uint32_t val : {15, 16, 15, 14, 19, 12, 19, 15, 16, 10, 10, 11, 14, 19, 13, 10, 15, 12, 18, 14}) {
-    //     minBinaryHeap->insert(val);
-    //     minBinaryHeap->print();
-    //     maxBinaryHeap->insert(val);
-    //     maxBinaryHeap->print();
-    // }
-    // for (size_t i = 0; i < 10; ++i) {
-    //     std::cout << minBinaryHeap->extractFirst() << '\n';
-    //     minBinaryHeap->print();
-    //     std::cout << maxBinaryHeap->extractFirst() << '\n';
-    //     maxBinaryHeap->print();
-    // }
 
     delete multiSet;
     return 0;
