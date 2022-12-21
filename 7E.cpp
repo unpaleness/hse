@@ -13,7 +13,7 @@ struct Event {
     int x{0};
     int y{0};
 
-    bool operator<(const Event& other) {
+    bool operator<(const Event& other) const {
         if (y != other.y) {
             return y < other.y;
         }
