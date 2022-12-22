@@ -1,5 +1,5 @@
-testname=in
-j=50001
+testname=in_big
+j=200001
 echo "$((j-1)) $j $j" > $testname;
 for((i=0;i<j/2;i++)); do
     echo "$((j/2-i)) $((i+1)) $((j-i-1))" >> $testname
