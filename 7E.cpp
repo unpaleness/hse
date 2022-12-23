@@ -1,6 +1,5 @@
 #include "optimization.h"
 
-#include <algorithm>
 #include <map>
 #include <set>
 #include <vector>
@@ -54,17 +53,14 @@ int main() {
     const auto X = readInt<int>();
 
     // fill station events
-    std::vector<Event> events;
-    events.reserve(n * 2);
+    std::set<Event> events;
     for (int i = 0; i < n; ++i) {
         const auto x = readInt<int>();
         const auto y1 = readInt<int>();
         const auto y2 = readInt<int>();
-        events.push_back({0, x, y1});
-        events.push_back({1, x, y2});
+        events.insert({0, x, y1});
+        events.insert({1, x, y2});
     }
-
-    std::sort(events.begin(), events.end());
 
     int yPrev{0};
     int typePrev{0};
